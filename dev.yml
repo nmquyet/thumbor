@@ -1,0 +1,28 @@
+data:
+  extends:
+    file: docker-compose.yml
+    service: data
+thumbor:
+  extends: 
+    file: docker-compose.yml
+    service: thumbor
+  environment:
+    ALLOW_UNSAFE_URL: "False"
+    SECURITY_KEY: "s5S8nfRKQUhua1z94fL"
+upload: 
+  extends:
+    file: docker-compose.yml
+    service: upload
+upload_php_fpm:
+  extends:
+    file: docker-compose.yml
+    service: upload_php_fpm
+  environment:
+    THUMBOR_PROXY: "http://dev.image.nhamvl.com:81"
+    THUMBOR_SECRET_KEY: "s5S8nfRKQUhua1z94fL"
+nginx:
+  extends:
+    file: docker-compose.yml
+    service: nginx
+  port:
+    "81:80"
